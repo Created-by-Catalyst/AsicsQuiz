@@ -159,6 +159,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayVideoThenLoop(int id)
     {
+        videoPlayer.transform.parent.gameObject.SetActive(true);
         videoPlayer.clip = videos[id];
         videoPlayer.Play();
 
