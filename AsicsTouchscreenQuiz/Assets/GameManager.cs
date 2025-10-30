@@ -46,6 +46,14 @@ public class GameManager : MonoBehaviour
     public void StarQuiz()
     {
         anim.Play("IntroOut");   
+
+        if(PlayerPrefs.GetInt("firstLoad") == 0)
+        {
+            PlayerPrefs.SetInt("firstLoad", 1);
+            PlayerPrefs.SetInt("shoeStock", 50);
+        }
+
+        print("shoe stock" + PlayerPrefs.GetInt("shoeStock"));
     }
 
     void EndQuiz(VideoPlayer vp)
@@ -102,9 +110,17 @@ public class GameManager : MonoBehaviour
 
         if (correctAnswers == 3)
         {
-            if(Random.Range(0, 3) == 0)
+            if (PlayerPrefs.GetInt("shoeStock") > 0)
             {
-                resultsScreens[0].SetActive(true);
+                if (Random.Range(0, 7) == 0)
+                {
+                    resultsScreens[0].SetActive(true);
+                    PlayerPrefs.SetInt("shoeStock", PlayerPrefs.GetInt("shoeStock") - 1);
+                }
+                else
+                {
+                    resultsScreens[1].SetActive(true);
+                }
             }
             else
             {
